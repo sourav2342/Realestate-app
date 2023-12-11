@@ -15,7 +15,7 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-}, { timestamps: true });
+}, { timestamps: true }); // mongodb adds time of creatn and time of adding.
 
 //create a model 
 const User = mongoose.model('User', userSchema);
