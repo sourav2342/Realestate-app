@@ -1,6 +1,11 @@
 import { Link } from "react-router-dom"
+import { useSelector } from "react-redux"
 
 export default function Header() {
+
+  const {currentUser} = useSelector(state => state.user);
+  console.log(currentUser);
+
   return (
     <header className="bg-slate-200 shadow-md">
         <div className="flex justify-between p-2 items-center max-w-6xl mx-auto">
@@ -16,7 +21,16 @@ export default function Header() {
             <ul className="flex gap-4">
                 <Link to='/'><li className="hidden sm:inline hover:underline">Home</li></Link>
                 <Link to='/about'><li className="hidden sm:inline hover:underline">About</li></Link>
-                <Link to='/signin'><li className="hidden sm:inline hover:underline">Sign in</li></Link>
+
+                <Link to='/profile'>
+                  {
+                   currentUser ? (
+                    <img className="rounded-full h-7 w-7 object-cover" src={currentUser.avatar} alt="profile"/>
+                    ) : (
+                      <li className="hidden sm:inline hover:underline">Sign in</li>
+                    )
+                  }
+                </Link>
             </ul>
       </div>
     </header>
