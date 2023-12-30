@@ -1,3 +1,4 @@
+import Listing from "../models/listing.model.js";
 import User from "../models/user.models.js";
 import { errorHandler } from "../utils/error.js";
 import bcryptjs from 'bcryptjs';
@@ -45,7 +46,7 @@ export const deleteUser = async (req, res, next) => {
     }
 }
 
-export const getUserListing = async ( req, res, next) => {
+export const getUserListing = async (req, res, next) => {
 
     if(req.user.id === req.params.id){
         try {
