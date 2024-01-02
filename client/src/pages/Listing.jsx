@@ -14,6 +14,7 @@ import {
     FaParking,
     FaShare,
   } from 'react-icons/fa';
+import Contact from '../components/Contact';
 
 export default function Listing() {
     SwiperCore.use([Navigation]);
@@ -133,6 +134,15 @@ export default function Listing() {
                 {listing.furnished ? 'Furnished' : 'Unfurnished'}
               </li>
         </ul>
+        { currentUser && listing.useRef !== currentUser._id && !contact && (
+            <button 
+               onClick={() => setContact(true)} 
+               className='bg-slate-700 text-white rounded-lg uppercase hover:opacity-95 p-2'
+            >
+              Contact landlord
+            </button>
+        )}
+        <Contact listing={listing} />
       </div>
       </div>
     }
