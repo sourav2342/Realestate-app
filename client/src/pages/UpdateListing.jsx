@@ -133,7 +133,7 @@ export default function CreateListing() {
         e.preventDefault();
         try {
             if(formData.imageUrls.length < 1) return setError('you must upload atleast 1 image');
-            if (formData.regularPrice < formData.discountPrice) return setError('Discount price must be lower than regular price');
+            if (+formData.regularPrice < +formData.discountPrice) return setError('Discount price must be lower than regular price');
             setLoading(true);
             setError(false);
             const res = await fetch(`/api/listing/update/${params.listingId}`, {
@@ -215,19 +215,19 @@ export default function CreateListing() {
                     </div>
                     <div className='flex gap-2'>
                         <input type="checkbox" id='parking' className='w-5'
-                         onChange={handleChange} checked={formData.type === 'parking'}
+                         onChange={handleChange} checked={formData.parking}
                         />
                         <span>Parking spot</span>
                     </div>
                     <div className='flex gap-2'>
                         <input type="checkbox" id='furnished' className='w-5'
-                         onChange={handleChange} checked={formData.type === 'furnished'}
+                         onChange={handleChange} checked={formData.furnished}
                         />
                         <span>Furnished</span>
                     </div>
                     <div className='flex gap-2'>
                         <input type="checkbox" id='offer' className='w-5'
-                         onChange={handleChange} checked={formData.type === 'offer'}
+                         onChange={handleChange} checked={formData.offer}
                         />
                         <span>Offer</span>
                     </div>
@@ -245,7 +245,7 @@ export default function CreateListing() {
                     <div className='flex items-center gap-2'>
                         <input type='number' className='p-3 border border-gray-300 
                          rounded-lg' id='bathrooms' min='1' max='10' required
-                         onChange={handleChange} checked={formData.bathroom}
+                         onChange={handleChange} 
                          value={formData.bathrooms}
                         />
                         <p>Baths</p>
@@ -253,22 +253,26 @@ export default function CreateListing() {
                     <div className='flex items-center gap-2'>
                         <input type='number' className='p-3 border border-gray-300 
                          rounded-lg' id='regularPrice' min='50' max='1000000' required
-                         onChange={handleChange}  value={formData.regularPrice} checked={formData.regularPrice}
+                         onChange={handleChange}  value={formData.regularPrice}
                         />
                         <div className='flex flex-col items-center'>
                             <p>Regular price</p>
-                            <span className='text-xs'>{}</span>
+                            {formData.type === 'rent' && (
+                                <span className='text-xs'>($ / month)</span>
+                            )}
                         </div>
                         
                     </div>
                     <div className='flex items-center gap-2'>
                         <input type='number' className='p-3 border border-gray-300
                          rounded-lg' id='discountPrice' min='50' max='1000000' required
-                         onChange={handleChange}  value={formData.discountPrice} checked={formData.discountPrice} 
+                         onChange={handleChange}  value={formData.discountPrice} 
                         />
                         <div className='flex flex-col items-center'>
                             <p>discountPrice</p>
-                            <span className='text-xs'>{}</span>
+                            {formData.type === 'rent' && (
+                                <span className='text-xs'>($ / month)</span>
+                            )}
                         </div>
                     </div>
                 </div>
